@@ -62,19 +62,11 @@ empSearch
 			return {
 				EmployeeAPI: function(ServerAPIConn, params) {
 					params = params || {};
-					var token = params.token;
-					params.format = 'json';
-					// For Testing Infinite Scroll Only, Otherwise Comment Out!
-					params.per_page = '10';
-					var use_params = angular.copy(params);
-					//console.log(token); // DEBUG
-					// Make sure token doesn't appear in the URL
-					delete use_params.token;
-					return $resource(ServerAPIConn, use_params, {
+					return $resource(ServerAPIConn, params, {
 						get: {
 							method: 'GET',
 							headers: {
-								'Authorization': 'Token ' + token
+								
 							}
 						}
 					});
