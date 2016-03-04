@@ -5,11 +5,10 @@ var empSearch = angular.module('cpdv1',[
 	'ngSanitize'
 ]);
 
+
 empSearch
 	.constant('ServerAPIConn','http://localhost:8080/_data.json')                             // API Resource ( # npm http-server )
 	.constant('AutoMsg','{ "msgDefault":"Please search by employee name!", "noResults":"Sorry no employees found!" }');
-
-
 
 
 empSearch
