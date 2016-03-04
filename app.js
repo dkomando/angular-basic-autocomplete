@@ -6,22 +6,22 @@ var empSearch = angular.module('cpdv1',[
 ]);
 
 empSearch
-	.constant('ServerAPIConn','http://localhost:8080/_data.json');                             // API Resource
-
+	.constant('ServerAPIConn','http://localhost:8080/_data.json')                             // API Resource ( # npm http-server )
+	.constant('AutoMsg','{ "msgDefault":"Please search by employee name!", "noResults":"Sorry no employees found!" }');
 
 
 
 
 empSearch
 	.directive('employeeSelect', employeeSelect);
-	employeeSelect.$inject = ['$filter','ServerAPIConn','EmployeeAPIFactory'];
-	function employeeSelect($filter,ServerAPIConn,EmployeeAPIFactory){
+	employeeSelect.$inject = ['$filter','ServerAPIConn','AutoMsg','EmployeeAPIFactory'];
+	function employeeSelect($filter,ServerAPIConn,AutoMsg,EmployeeAPIFactory){
 		return {
 			restrict: 'E',
 			templateUrl: 'directive_employee-select.html',
 
 			link: function(scope,elem,attrs){
-				scope.nothingFoundMsg = 'Please search by employee name!'; // Set default search instructions.
+				scope.nothingFoundMsg = AutoMsg.msgDefault; // Set default search instructions.
 				//console.log('Scope:',scope,'  Elements:',elem,'  Attributes:',attrs); // DEBUG
 
 
@@ -41,10 +41,10 @@ empSearch
 						}, function(result){ console.log('Error: No users returned.'); }); // Show if any errors encountered.
 
 
-						scope.nothingFoundMsg = 'Sorry no employees found!';
+						scope.nothingFoundMsg = AutoMsg.noResults;
 					}else{
 						scope.usersResults = ''; // Reset results
-						scope.nothingFoundMsg = 'Please search by employee name!';
+						scope.nothingFoundMsg = AutoMsg.msgDefault;
 					}
 				};
 			}
@@ -66,7 +66,7 @@ empSearch
 						get: {
 							method: 'GET',
 							headers: {
-								
+
 							}
 						}
 					});
@@ -80,6 +80,6 @@ empSearch
 empSearch
 	.filter('keepTrim',function(){
 		return function(value){
-			return (!value) ? '' : value.replace(/^\s|\s$/g,'');
+			return (value) ? value.replace(/^\s|\s$/g,'') : '';
 		};
 	});
