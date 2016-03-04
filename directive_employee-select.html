@@ -1,0 +1,10 @@
+<div class="dropdown">
+	<div class="input-group">
+		<input class="form-control" type="text" id="dropdownMenu1" data-ng-model="user_selected_emp" data-ng-change="checkAPI(user_selected_emp)" placeholder="Select Employee" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	  <span class="input-group-addon" title="Clear Dropdown Search" data-ng-click="clearInput()"><i class="glyphicon glyphicon-remove pointer"></i></span>
+	</div>
+	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+		<li ng-repeat="user in usersResults | limitTo:10"><a href="#" data-ng-bind="displayName(user.first_name,user.last_name)" data-ng-click="setSelected(user.first_name,user.last_name)"></a></li>
+		<li><span class="msg-indent" data-ng-bind="nothingFoundMsg"></span></li>
+	</ul>
+</div>
